@@ -85,14 +85,14 @@ class SignUpFormBase extends Component {
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
-          type="text"
+          type="password"
           placeholder="Password"
         />
         <input
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
-          type="text"
+          type="password"
           placeholder="Confirm Password"
         />
       <button disabled={isInvalid} type="submit">Sign Up</button>
