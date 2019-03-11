@@ -30,7 +30,7 @@ const withAuthorization = condition => Component => {
                   ...dbUser,
                 };
 
-                if(!condition(autUser)) {
+                if(!condition(authUser)) {
                   this.props.history.push(ROUTES.SIGN_IN);
                 }
               });
