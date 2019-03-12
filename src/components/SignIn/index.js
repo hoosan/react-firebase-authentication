@@ -156,7 +156,9 @@ class SignInFacebookBase extends Component {
           .user(socialAuthUser.user.uid)
           .set({
             username: socialAuthUser.additionalUserInfo.profile.name,
-            // email: socialAuthUser.additionalUserInfo.profile.email,  // not working
+            email:
+              socialAuthUser.additionalUserInfo.profile.email === undefined
+              ? "undefined" : socialAuthUser.additionalUserInfo.profile.email,  // not working
             roles: [],
           })
           .then(() => {
@@ -208,7 +210,8 @@ class SignInTwitterBase extends Component {
           .user(socialAuthUser.user.uid)
           .set({
             username: socialAuthUser.additionalUserInfo.profile.name,
-            // email: socialAuthUser.additionalUserInfo.profile.email, // not working
+            email: socialAuthUser.additionalUserInfo.profile.email === undefined
+            ? "undefined" : socialAuthUser.additionalUserInfo.profile.email, // not working
             roles: [],
           });
       })
