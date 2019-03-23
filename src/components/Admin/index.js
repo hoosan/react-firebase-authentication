@@ -72,7 +72,12 @@ class UserListBase extends Component {
                 <strong>Username:</strong> {user.username}
               </span>
               <span>
-                <Link to={`${ROUTES.ADMIN}/${user.uid}`}>
+                <Link
+                  to={{
+                    pathname: `${ROUTES.ADMIN}/${user.uid}`,
+                    state: { user },
+                  }}
+                >
                   Details
                 </Link>
               </span>
@@ -94,10 +99,16 @@ class UserItemBase extends Component {
     this.state = {
       loading: false,
       user: null,
+      ...props.location.state,
     };
   }
 
   componentDidMount() {
+
+    if (this.state.user) {
+      return;
+    }
+
     this.setState({ loading: true });
 
     this.props.firebase
@@ -113,6 +124,10 @@ class UserItemBase extends Component {
   componentWillUnmount() {
     this.props.firebase.user(this.props.match.params.id).off();
   }
+
+  onSendPasswordResetEmail = () => {
+    this.props.firebase.doPasswordReset(this.state.user.email);
+  };
 
   render() {
     const { user, loading } = this.state;
@@ -132,6 +147,14 @@ class UserItemBase extends Component {
             </span>
             <span>
               <strong>Username:</strong> {user.username}
+            </span>
+            <span>
+              <button
+                type="button"
+                onClick={this.onSendPasswordResetEmail}
+              >
+                Send Password Reset
+              </button>
             </span>
           </div>
         )}
